@@ -16,10 +16,12 @@ void displayList() {
     clear_screen();
     FILE *file = fopen(DATAFILE, "r+");
     char name[MAXLENGTH], number[MAXLENGTH];
+    int isblankFile = 1;
     while (fscanf(file, "%s%s", name, number) != EOF) {
         printf("%s %s\n", name, number);
+        isblankFile = 0;
     }
-    if (strlen(name) == 0) {
+    if (isblankFile) {
         printf("<none>\n");
     }
     fclose(file);
