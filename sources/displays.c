@@ -14,7 +14,7 @@ void displayMainMenu() {
 
 void displayList() {
     clear_screen();
-    FILE *file = fopen(DATAFILE, "r");
+    FILE *file = fopen(DATAFILE, "r+");
     char name[MAXLENGTH], number[MAXLENGTH];
     while (fscanf(file, "%s%s", name, number) != EOF) {
         printf("%s %s\n", name, number);
