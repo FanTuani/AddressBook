@@ -1,10 +1,9 @@
 #include <string.h>
 #include "../headers/displays.h"
 #include "../headers/operations.h"
-#include "../headers/fileInteractions.h"
 
 void displayMainMenu() {
-    system("cls");
+    clear_screen();
     printf("Address book\n");
     printf("1. Display all\n");
     printf("2. Add\n");
@@ -14,7 +13,7 @@ void displayMainMenu() {
 }
 
 void displayList() {
-    system("cls");
+    clear_screen();
     FILE *file = fopen(DATAFILE, "r");
     char name[MAXLENGTH], number[MAXLENGTH];
     while (fscanf(file, "%s%s", name, number) != EOF) {
@@ -28,7 +27,7 @@ void displayList() {
 }
 
 void displayAdd() {
-    system("cls");
+    clear_screen();
     char name[MAXLENGTH], number[MAXLENGTH];
     printf("name: ");
     scanf("%s", name);
@@ -42,7 +41,7 @@ void displayAdd() {
 }
 
 void displayDelete() {
-    system("cls");
+    clear_screen();
     char name[MAXLENGTH];
     printf("name: ");
     scanf("%s", name);
@@ -53,7 +52,7 @@ void displayDelete() {
 }
 
 void displayModify() {
-    system("cls");
+    clear_screen();
     char name[MAXLENGTH], number[MAXLENGTH];
     printf("name: ");
     scanf("%s", name);
