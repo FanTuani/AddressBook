@@ -11,4 +11,6 @@ void displayAdd();
 
 void displayDelete();
 
+void displayModify();
+
 #endif //ADDRESSBOOK_DISPLAYS_H

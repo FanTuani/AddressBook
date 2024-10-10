@@ -18,6 +18,9 @@ int main() {
             case 3:
                 displayDelete();
                 break;
+            case 4:
+                displayModify();
+                break;
             default:
                 return 0;
         }

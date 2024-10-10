@@ -51,3 +51,22 @@ void displayDelete() {
     deleteData(name);
     getchar();
 }
+
+void displayModify() {
+    system("cls");
+    char name[MAXLENGTH], number[MAXLENGTH];
+    printf("name: ");
+    scanf("%s", name);
+    getchar();
+    deleteData(name);
+
+    printf("new name: ");
+    scanf("%s", name);
+    getchar();
+    printf("new number: ");
+    scanf("%s", number);
+    getchar();
+
+    addData(name, number);
+    getchar();
+}
