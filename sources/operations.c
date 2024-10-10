@@ -1,31 +1,30 @@
 #include <string.h>
 #include "../headers/operations.h"
 
-int addData(const char *name, const char *number) {
-    int isNumberValid = strlen(number) == 11;
+int addData(const Student *student) {
+    const char *number = student->number;
+    int isNumberValid = 11 == strlen(number);
     for (int i = 0; isNumberValid && number[i] != '\0'; i++) {
         if (number[i] < '0' || number[i] > '9') {
             isNumberValid = 0;
         }
     }
     if (isNumberValid) {
-        FILE *file = fopen(DATAFILE, "a+");
-        fprintf(file, "%s %s\n", name, number);
-        printf("success!\n");
+        FILE *file = fopen(DATAFILE, "ab+");
+        fwrite(student, sizeof(Student), 1, file);
         fclose(file);
-        return 0;
-    } else {
-        printf("INVALID PHONE NUMBER\n");
         return 1;
+    } else {
+        return 0;
     }
 }
 
-void deleteData(const char *delName) {
-    FILE *file = fopen(DATAFILE, "r");
-    char name[1000][MAXLENGTH], number[1000][MAXLENGTH];
+int deleteData(const char *delName) {
+    FILE *file = fopen(DATAFILE, "rb+");
+    Student student[1000];
     int cnt = 0, isFound = 0;
-    while (fscanf(file, "%s%s", name[cnt], number[cnt]) != EOF) {
-        if (strcmp(name[cnt], delName) == 0) {
+    while (fread(&student[cnt], sizeof(Student), 1, file) != 0) {
+        if (strcmp(student[cnt].name, delName) == 0) {
             cnt--;
             isFound = 1;
         }
@@ -35,20 +34,20 @@ void deleteData(const char *delName) {
     if (isFound) {
         file = fopen(DATAFILE, "w");
         for (int i = 0; i < cnt; i++) {
-            fprintf(file, "%s %s\n", name[i], number[i]);
+            fwrite(&student[i], sizeof(Student), 1, file);
         }
         fclose(file);
-        printf("success");
+        return 1;
     } else {
-        printf("INVALID NAME");
+        return 0;
     }
 }
 
 int checkData(const char *checkName) {
     FILE *file = fopen(DATAFILE, "r");
-    char name[MAXLENGTH], number[MAXLENGTH];
-    while (fscanf(file, "%s%s", name, number) != EOF) {
-        if (strcmp(name, checkName) == 0) {
+    Student student;
+    while (fread(&student, sizeof(Student), 1, file) != 0) {
+        if (strcmp(student.name, checkName) == 0) {
             return 1;
         }
     }

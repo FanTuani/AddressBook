@@ -2,10 +2,11 @@
 #define ADDRESSBOOK_OPERATIONS_H
 
 #include "utils.h"
+#include "../headers/student.h"
 
-int addData(const char *name, const char *number);
+int addData(const Student *student);
 
-void deleteData(const char *name);
+int deleteData(const char *name);
 
 int checkData(const char *name);
 

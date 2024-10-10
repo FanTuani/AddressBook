@@ -1,7 +1,7 @@
-#include <string.h>
 #include <conio.h>
 #include "../headers/displays.h"
 #include "../headers/operations.h"
+#include "../headers/student.h"
 
 void displayMainMenu() {
     char menu[6][30] = {"", "LIST ALL", "APPEND", "DELETE", "MODIFY", "EXIT"};
@@ -50,7 +50,7 @@ void displayMainMenu() {
                 printf("\33[33m> ");
             }
             printf("%d. %s", i, menu[i]);
-            if(i == cur) {
+            if (i == cur) {
                 printf("\33[0m");
             }
             printf("\n");
@@ -60,11 +60,14 @@ void displayMainMenu() {
 
 void displayList() {
     clear_screen();
-    FILE *file = fopen(DATAFILE, "a+");
-    char name[MAXLENGTH], number[MAXLENGTH];
+    FILE *file = fopen(DATAFILE, "rb+");
     int isblankFile = 1;
-    while (fscanf(file, "%s%s", name, number) != EOF) {
-        printf("%s %s\n", name, number);
+    while (1) {
+        Student student;
+        if (fread(&student, sizeof(Student), 1, file) == 0) {
+            break;
+        }
+        printf("%s %s\n", student.name, student.number);
         isblankFile = 0;
     }
     if (isblankFile) {
@@ -76,15 +79,15 @@ void displayList() {
 
 void displayAdd() {
     clear_screen();
-    char name[MAXLENGTH], number[MAXLENGTH];
+    Student *student = malloc(sizeof(Student));
     printf("name: ");
-    scanf("%s", name);
+    scanf("%s", student->name);
     getchar();
     printf("number: ");
-    scanf("%s", number);
+    scanf("%s", student->number);
     getchar();
 
-    addData(name, number);
+    print_info(addData(student), "INVALID PHONE NUMBER");
     getchar();
 }
 
@@ -95,13 +98,13 @@ void displayDelete() {
     scanf("%s", name);
     getchar();
 
-    deleteData(name);
+    print_info(deleteData(name), "INVALID NAME");
     getchar();
 }
 
 void displayModify() {
     clear_screen();
-    char oriName[MAXLENGTH], name[MAXLENGTH], number[MAXLENGTH];
+    char oriName[MAXLENGTH];
     printf("origin name: ");
     scanf("%s", oriName);
     getchar();
@@ -111,15 +114,14 @@ void displayModify() {
         return;
     }
 
+    Student *student = malloc(sizeof(Student));
     printf("new name: ");
-    scanf("%s", name);
+    scanf("%s", student->name);
     getchar();
     printf("new number: ");
-    scanf("%s", number);
+    scanf("%s", student->number);
     getchar();
 
-    if (addData(name, number) == 0) {
-        deleteData(oriName);
-    }
+    print_info(addData(student) && deleteData(oriName), "INVALID INPUT");
     getchar();
 }

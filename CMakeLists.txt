@@ -9,4 +9,6 @@ add_executable(AddressBook sources/main.c
         sources/operations.c
         headers/operations.h
         headers/utils.h
-        sources/utils.c)
+        sources/utils.c
+        sources/student.c
+        headers/student.h)

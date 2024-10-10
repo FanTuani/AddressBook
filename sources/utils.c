@@ -11,3 +11,11 @@ void clear_screen() {
     printf("Unsupported OS\n");
 #endif
 }
+
+void print_info(int value, char *info) {
+    if (value == 1) {
+        printf("success\n");
+    } else {
+        printf("%s\n", info);
+    }
+}
