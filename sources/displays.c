@@ -1,15 +1,45 @@
 #include <string.h>
+#include <conio.h>
 #include "../headers/displays.h"
 #include "../headers/operations.h"
 
 void displayMainMenu() {
-    clear_screen();
-    printf("ADDRESS BOOK\n");
-    printf("1. LIST ALL\n");
-    printf("2. APPEND\n");
-    printf("3. DELETE\n");
-    printf("4. MODIFY\n");
-    printf("0. EXIT\n");
+    char menu[6][30] = {"", "LIST ALL", "APPEND", "DELETE", "MODIFY", "EXIT"};
+    int cur = 1;
+    char ch;
+    do {
+//        printf("%d", ch);
+        if (ch == 72) { // up
+            cur = cur - 1 == 0 ? 5 : cur - 1;
+        } else if (ch == 80) { // down
+            cur = cur + 1 == 6 ? 1 : cur + 1;
+        } else if (ch == 13) { // enter
+            switch (cur) {
+                case 1:
+                    displayList();
+                    break;
+                case 2:
+                    displayAdd();
+                    break;
+                case 3:
+                    displayDelete();
+                    break;
+                case 4:
+                    displayModify();
+                    break;
+                default:
+                    exit(0);
+            }
+        }
+        clear_screen();
+        printf("ADDRESS BOOK\n");
+        for (int i = 1; i <= 5; i++) {
+            if (i == cur) {
+                printf("> ");
+            }
+            printf("%d. %s\n", i, menu[i]);
+        }
+    } while (ch = getch());
 }
 
 void displayList() {
