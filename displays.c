@@ -1,0 +1,38 @@
+#include "displays.h"
+#include "fileInterations.h"
+#include "constants.h"
+
+void displayMainMenu() {
+    system("cls");
+    printf("Address book\n");
+    printf("1. Display all\n");
+    printf("2. Add\n");
+    printf("3. Delete\n");
+    printf("4. Modify\n");
+    printf("0. Exit\n");
+}
+
+void displayList() {
+    system("cls");
+    FILE *file = getDataFile();
+    char name[MAXLENGTH], number[MAXLENGTH];
+    while (fscanf(file, "%s%s", name, number) != EOF) {
+        printf("%s %s\n", name, number);
+    }
+    getchar();
+}
+
+void displayAdd() {
+    system("cls");
+    char name[MAXLENGTH], number[MAXLENGTH];
+    printf("name: ");
+    scanf("%s", name);
+    getchar();
+    printf("number: ");
+    scanf("%s", number);
+    getchar();
+}
+
+void displayDelete() {
+
+}
