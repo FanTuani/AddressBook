@@ -14,7 +14,7 @@ void displayMainMenu() {
 
 void displayList() {
     clear_screen();
-    FILE *file = fopen(DATAFILE, "r+");
+    FILE *file = fopen(DATAFILE, "a+");
     char name[MAXLENGTH], number[MAXLENGTH];
     int isblankFile = 1;
     while (fscanf(file, "%s%s", name, number) != EOF) {
@@ -55,11 +55,10 @@ void displayDelete() {
 
 void displayModify() {
     clear_screen();
-    char name[MAXLENGTH], number[MAXLENGTH];
-    printf("name: ");
-    scanf("%s", name);
+    char oriName[MAXLENGTH], name[MAXLENGTH], number[MAXLENGTH];
+    printf("origin name: ");
+    scanf("%s", oriName);
     getchar();
-    deleteData(name);
 
     printf("new name: ");
     scanf("%s", name);
@@ -68,6 +67,8 @@ void displayModify() {
     scanf("%s", number);
     getchar();
 
-    addData(name, number);
+    if (addData(name, number) == 0) {
+        deleteData(oriName);
+    }
     getchar();
 }

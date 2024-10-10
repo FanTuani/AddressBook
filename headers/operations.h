@@ -3,7 +3,7 @@
 
 #include "utils.h"
 
-void addData(const char *name, const char *number);
+int addData(const char *name, const char *number);
 
 void deleteData(const char *name);
 

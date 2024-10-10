@@ -1,7 +1,7 @@
 #include <string.h>
 #include "../headers/operations.h"
 
-void addData(const char *name, const char *number) {
+int addData(const char *name, const char *number) {
     int isNumberValid = strlen(number) == 11;
     for (int i = 0; isNumberValid && number[i] != '\0'; i++) {
         if (number[i] < '0' || number[i] > '9') {
@@ -13,8 +13,10 @@ void addData(const char *name, const char *number) {
         fprintf(file, "%s %s\n", name, number);
         printf("success!\n");
         fclose(file);
+        return 0;
     } else {
         printf("INVALID PHONE NUMBER\n");
+        return 1;
     }
 }
 
