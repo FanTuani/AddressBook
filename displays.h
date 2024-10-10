@@ -1,8 +1,7 @@
 #ifndef ADDRESSBOOK_DISPLAYS_H
 #define ADDRESSBOOK_DISPLAYS_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "constants.h"
 
 void displayMainMenu();
 

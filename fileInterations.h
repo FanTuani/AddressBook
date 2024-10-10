@@ -1,8 +1,7 @@
 #ifndef ADDRESSBOOK_FILEINTERATIONS_H
 #define ADDRESSBOOK_FILEINTERATIONS_H
 
-#include <stdio.h>
-
+#include "constants.h"
 FILE *getDataFile();
 
 #endif //ADDRESSBOOK_FILEINTERATIONS_H
