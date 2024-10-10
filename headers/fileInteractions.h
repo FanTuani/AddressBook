@@ -2,6 +2,5 @@
 #define ADDRESSBOOK_FILEINTERACTIONS_H
 
 #include "constants.h"
-FILE *getDataFile();
 
 #endif //ADDRESSBOOK_FILEINTERACTIONS_H

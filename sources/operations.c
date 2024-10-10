@@ -1,8 +1,7 @@
 #include <string.h>
 #include "../headers/operations.h"
-#include "../headers/fileInteractions.h"
 
-void addData(char *name, char *number) {
+void addData(const char *name, const char *number) {
     int isNumberValid = strlen(number) == 11;
     for (int i = 0; isNumberValid && number[i] != '\0'; i++) {
         if (number[i] < '0' || number[i] > '9') {
@@ -10,11 +9,35 @@ void addData(char *name, char *number) {
         }
     }
     if (isNumberValid) {
-        FILE *file = getDataFile();
+        FILE *file = fopen(DATAFILE, "a+");
         fprintf(file, "%s %s\n", name, number);
         printf("success!\n");
         fclose(file);
     } else {
         printf("INVALID PHONE NUMBER\n");
+    }
+}
+
+void deleteData(const char *delName) {
+    FILE *file = fopen(DATAFILE, "r");
+    char name[1000][MAXLENGTH], number[1000][MAXLENGTH];
+    int cnt = 0, isFound = 0;
+    while (fscanf(file, "%s%s", name[cnt], number[cnt]) != EOF) {
+        if (strcmp(name[cnt], delName) == 0) {
+            cnt--;
+            isFound = 1;
+        }
+        cnt++;
+    }
+    fclose(file);
+    if (isFound) {
+        file = fopen(DATAFILE, "w");
+        for (int i = 0; i < cnt; i++) {
+            fprintf(file, "%s %s\n", name[i], number[i]);
+        }
+        fclose(file);
+        printf("success");
+    } else {
+        printf("INVALID NAME");
     }
 }

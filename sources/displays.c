@@ -15,7 +15,7 @@ void displayMainMenu() {
 
 void displayList() {
     system("cls");
-    FILE *file = getDataFile();
+    FILE *file = fopen(DATAFILE, "r");
     char name[MAXLENGTH], number[MAXLENGTH];
     while (fscanf(file, "%s%s", name, number) != EOF) {
         printf("%s %s\n", name, number);
@@ -42,5 +42,12 @@ void displayAdd() {
 }
 
 void displayDelete() {
+    system("cls");
+    char name[MAXLENGTH];
+    printf("name: ");
+    scanf("%s", name);
+    getchar();
 
+    deleteData(name);
+    getchar();
 }

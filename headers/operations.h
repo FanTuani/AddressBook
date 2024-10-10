@@ -3,6 +3,8 @@
 
 #include "constants.h"
 
-void addData(char *name, char *number);
+void addData(const char *name, const char *number);
+
+void deleteData(const char *name);
 
 #endif //ADDRESSBOOK_OPERATIONS_H

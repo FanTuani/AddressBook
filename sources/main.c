@@ -15,6 +15,9 @@ int main() {
             case 2:
                 displayAdd();
                 break;
+            case 3:
+                displayDelete();
+                break;
             default:
                 return 0;
         }
