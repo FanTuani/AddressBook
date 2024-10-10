@@ -30,14 +30,30 @@ void displayMainMenu() {
                 default:
                     exit(0);
             }
+        } else {
+            if (ch == 49) { // 1
+                displayList();
+            } else if (ch == 50) { // 2
+                displayAdd();
+            } else if (ch == 51) { // 3
+                displayDelete();
+            } else if (ch == 52) { // 4
+                displayModify();
+            } else if (ch == 53) { // 5
+                exit(0);
+            }
         }
         clear_screen();
         printf("ADDRESS BOOK\n");
         for (int i = 1; i <= 5; i++) {
             if (i == cur) {
-                printf("> ");
+                printf("\33[33m> ");
             }
-            printf("%d. %s\n", i, menu[i]);
+            printf("%d. %s", i, menu[i]);
+            if(i == cur) {
+                printf("\33[0m");
+            }
+            printf("\n");
         }
     } while (ch = getch());
 }
