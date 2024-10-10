@@ -4,12 +4,12 @@
 
 void displayMainMenu() {
     clear_screen();
-    printf("Address book\n");
-    printf("1. Display all\n");
-    printf("2. Add\n");
-    printf("3. Delete\n");
-    printf("4. Modify\n");
-    printf("0. Exit\n");
+    printf("ADDRESS BOOK\n");
+    printf("1. LIST ALL\n");
+    printf("2. APPEND\n");
+    printf("3. DELETE\n");
+    printf("4. MODIFY\n");
+    printf("0. EXIT\n");
 }
 
 void displayList() {
@@ -59,6 +59,11 @@ void displayModify() {
     printf("origin name: ");
     scanf("%s", oriName);
     getchar();
+    if (checkData(oriName) == 0) {
+        printf("INVALID ORIGIN NAME");
+        getchar();
+        return;
+    }
 
     printf("new name: ");
     scanf("%s", name);

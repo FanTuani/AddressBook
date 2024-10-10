@@ -43,3 +43,14 @@ void deleteData(const char *delName) {
         printf("INVALID NAME");
     }
 }
+
+int checkData(const char *checkName) {
+    FILE *file = fopen(DATAFILE, "r");
+    char name[MAXLENGTH], number[MAXLENGTH];
+    while (fscanf(file, "%s%s", name, number) != EOF) {
+        if (strcmp(name, checkName) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
