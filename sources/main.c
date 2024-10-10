@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "displays.h"
-#include "operations.h"
+#include "../headers/displays.h"
+#include "../headers/operations.h"
 
 int main() {
     while(1) {

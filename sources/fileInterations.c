@@ -1,4 +1,4 @@
-#include "fileInterations.h"
+#include "../headers/fileInterations.h"
 
 FILE *getDataFile() {
     FILE *file = fopen("data.txt", "a+");
