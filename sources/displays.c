@@ -1,7 +1,7 @@
 #include <string.h>
 #include "../headers/displays.h"
 #include "../headers/operations.h"
-#include "../headers/fileInterations.h"
+#include "../headers/fileInteractions.h"
 
 void displayMainMenu() {
     system("cls");

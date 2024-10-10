@@ -8,6 +8,6 @@ add_executable(AddressBook sources/main.c
         sources/displays.c
         sources/operations.c
         headers/operations.h
-        sources/fileInterations.c
-        headers/fileInterations.h
+        sources/fileInteractions.c
+        headers/fileInteractions.h
         headers/constants.h)

@@ -1,6 +1,6 @@
 #include <string.h>
 #include "../headers/operations.h"
-#include "../headers/fileInterations.h"
+#include "../headers/fileInteractions.h"
 
 void addData(char *name, char *number) {
     int isNumberValid = strlen(number) == 11;
