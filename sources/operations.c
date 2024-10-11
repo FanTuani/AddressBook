@@ -32,7 +32,7 @@ int deleteData(const char *delName) {
     }
     fclose(file);
     if (isFound) {
-        file = fopen(DATAFILE, "w");
+        file = fopen(DATAFILE, "ab+");
         for (int i = 0; i < cnt; i++) {
             fwrite(&student[i], sizeof(Student), 1, file);
         }
@@ -44,7 +44,7 @@ int deleteData(const char *delName) {
 }
 
 int checkData(const char *checkName) {
-    FILE *file = fopen(DATAFILE, "r");
+    FILE *file = fopen(DATAFILE, "rb+");
     Student student;
     while (fread(&student, sizeof(Student), 1, file) != 0) {
         if (strcmp(student.name, checkName) == 0) {
