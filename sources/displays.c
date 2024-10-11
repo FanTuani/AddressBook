@@ -19,7 +19,7 @@ void displayMainMenu() {
                     displayList();
                     break;
                 case 2:
-                    displayAdd();
+                    displayAppend();
                     break;
                 case 3:
                     displayDelete();
@@ -34,7 +34,7 @@ void displayMainMenu() {
             if (ch == 49) { // 1
                 displayList();
             } else if (ch == 50) { // 2
-                displayAdd();
+                displayAppend();
             } else if (ch == 51) { // 3
                 displayDelete();
             } else if (ch == 52) { // 4
@@ -77,7 +77,7 @@ void displayList() {
     getchar();
 }
 
-void displayAdd() {
+void displayAppend() {
     clear_screen();
     Student *student = malloc(sizeof(Student));
     printf("name: ");

@@ -7,7 +7,7 @@ void displayMainMenu();
 
 void displayList();
 
-void displayAdd();
+void displayAppend();
 
 void displayDelete();
 

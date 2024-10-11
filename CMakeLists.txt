@@ -3,9 +3,7 @@ project(AddressBook C)
 
 set(CMAKE_C_STANDARD 17)
 
-INCLUDE(CMakeForceCompiler)
-CMAKE_FORCE_C_COMPILER(gcc GNU)
-CMAKE_FORCE_CXX_COMPILER(g++ GNU)
+set(CMAKE_C_COMPILER gcc)
 
 add_executable(AddressBook sources/main.c
         headers/displays.h
