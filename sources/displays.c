@@ -1,13 +1,12 @@
 #include "../headers/displays.h"
 #include "../headers/operations.h"
-#include "../headers/student.h"
 
 #ifdef _WIN32
 #include <conio.h>
 void displayMainMenu() {
     char menu[6][30] = {"", "LIST ALL", "APPEND", "DELETE", "MODIFY", "EXIT"};
     int cur = 1;
-    char ch;
+    char ch = 0;
     do {
         if (ch == 72) {  // up
             cur = cur - 1 == 0 ? 5 : cur - 1;
