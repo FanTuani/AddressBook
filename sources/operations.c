@@ -43,13 +43,27 @@ int deleteData(const char *delName) {
     }
 }
 
-int checkData(const char *checkName) {
+int isDataExist(const char *name) {
     FILE *file = fopen(DATAFILE, "rb+");
     Student student;
     while (fread(&student, sizeof(Student), 1, file) != 0) {
-        if (strcmp(student.name, checkName) == 0) {
+        if (strcmp(student.name, name) == 0) {
             return 1;
         }
     }
     return 0;
+}
+
+int isBlankFile() {
+    FILE *file = fopen(DATAFILE, "rb+");
+    int isblankFile = 1;
+    while (1) {
+        Student student;
+        if (fread(&student, sizeof(Student), 1, file) == 0) {
+            break;
+        }
+        isblankFile = 0;
+    }
+    fclose(file);
+    return isblankFile;
 }

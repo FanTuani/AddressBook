@@ -1,17 +1,22 @@
+#include <string.h>
 #include "../headers/displays.h"
 #include "../headers/operations.h"
 
 #ifdef _WIN32
+
 #include <conio.h>
+
+#define OPT_NUM 6
+
 void displayMainMenu() {
-    char menu[6][30] = {"", "LIST ALL", "APPEND", "DELETE", "MODIFY", "EXIT"};
+    char menu[OPT_NUM + 1][30] = {"", "LIST ALL", "APPEND", "DELETE", "MODIFY", "SEARCH", "EXIT"};
     int cur = 1;
     char ch = 0;
     do {
         if (ch == 72) {  // up
-            cur = cur - 1 == 0 ? 5 : cur - 1;
+            cur = cur - 1 == 0 ? OPT_NUM : cur - 1;
         } else if (ch == 80) {  // down
-            cur = cur + 1 == 6 ? 1 : cur + 1;
+            cur = cur + 1 == OPT_NUM + 1 ? 1 : cur + 1;
         } else if (ch == 13) {  // enter
             switch (cur) {
                 case 1:
@@ -26,6 +31,9 @@ void displayMainMenu() {
                 case 4:
                     displayModify();
                     break;
+                case 5:
+                    displaySearch();
+                    break;
                 default:
                     exit(0);
             }
@@ -39,12 +47,14 @@ void displayMainMenu() {
             } else if (ch == 52) {  // 4
                 displayModify();
             } else if (ch == 53) {  // 5
+                displaySearch();
+            } else if (ch == 54) {  // 6
                 exit(0);
             }
         }
         clear_screen();
         printf("ADDRESS BOOK\n");
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= OPT_NUM; i++) {
             if (i == cur) {
                 printf("\33[33m> ");
             }
@@ -56,6 +66,7 @@ void displayMainMenu() {
         }
     } while (ch = getch());
 }
+
 #elif __linux__
 void displayMainMenu() {
     clear_screen();
@@ -76,6 +87,8 @@ void displayMainMenu() {
         displayDelete();
     } else if (op == 4) {
         displayModify();
+    } else if (op == 5) {
+        displaySearch();
     } else if (op == 0) {
         clear_screen();
         exit(0);
@@ -85,18 +98,16 @@ void displayMainMenu() {
 
 void displayList() {
     clear_screen();
-    FILE* file = fopen(DATAFILE, "rb+");
-    int isblankFile = 1;
+    FILE *file = fopen(DATAFILE, "rb+");
+    if (isBlankFile()) {
+        printf("<none>");
+    }
     while (1) {
         Student student;
         if (fread(&student, sizeof(Student), 1, file) == 0) {
             break;
         }
         printf("%s %s\n", student.name, student.number);
-        isblankFile = 0;
-    }
-    if (isblankFile) {
-        printf("<none>\n");
     }
     fclose(file);
     getchar();
@@ -104,7 +115,7 @@ void displayList() {
 
 void displayAppend() {
     clear_screen();
-    Student* student = malloc(sizeof(Student));
+    Student *student = malloc(sizeof(Student));
     printf("name: ");
     scanf("%s", student->name);
     getchar();
@@ -133,13 +144,13 @@ void displayModify() {
     printf("origin name: ");
     scanf("%s", oriName);
     getchar();
-    if (checkData(oriName) == 0) {
+    if (isDataExist(oriName) == 0) {
         printf("INVALID ORIGIN NAME");
         getchar();
         return;
     }
 
-    Student* student = malloc(sizeof(Student));
+    Student *student = malloc(sizeof(Student));
     printf("new name: ");
     scanf("%s", student->name);
     getchar();
@@ -148,5 +159,40 @@ void displayModify() {
     getchar();
 
     print_info(addData(student) && deleteData(oriName), "INVALID INPUT");
+    getchar();
+}
+
+void displaySearch() {
+    clear_screen();
+    char options[3][20] = {"", "name", "number"};
+    printf("which way to search?\n[1]name [2]number\n");
+    int op;
+    scanf("%d", &op);
+    getchar();
+    printf("%s: ", options[op]);
+    char input[20];
+    scanf("%s", input);
+    getchar();
+    clear_screen();
+
+    FILE *file = fopen(DATAFILE, "rb+");
+    int isBlank = 1;
+    while (1) {
+        Student student;
+        if (fread(&student, sizeof(Student), 1, file) == 0) {
+            break;
+        }
+        if (op == 1 && strcmp(student.name, input) == 0) {
+            printf("%s %s\n", student.name, student.number);
+            isBlank = 0;
+        } else if (op == 2 && strcmp(student.number, input) == 0) {
+            printf("%s %s\n", student.name, student.number);
+            isBlank = 0;
+        }
+    }
+    if (isBlank) {
+        printf("<none>\n");
+    }
+    fclose(file);
     getchar();
 }

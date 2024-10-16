@@ -8,6 +8,8 @@ int addData(const Student *student);
 
 int deleteData(const char *name);
 
-int checkData(const char *name);
+int isDataExist(const char *name);
+
+int isBlankFile();
 
 #endif //ADDRESSBOOK_OPERATIONS_H
