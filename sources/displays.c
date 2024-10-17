@@ -54,6 +54,7 @@ void displayMainMenu() {
         }
         clear_screen();
         printf("ADDRESS BOOK\n");
+        printf("* you can navigate via arrow or number keys.\n");
         for (int i = 1; i <= OPT_NUM; i++) {
             if (i == cur) {
                 printf("\33[33m> ");
@@ -100,8 +101,11 @@ void displayList() {
     clear_screen();
     FILE *file = fopen(DATAFILE, "rb+");
     if (isBlankFile()) {
-        printf("<none>");
+        printf("<none>\n");
+        getchar();
+        return;
     }
+    printf("[name] [number]\n");
     while (1) {
         Student student;
         if (fread(&student, sizeof(Student), 1, file) == 0) {
@@ -130,7 +134,7 @@ void displayAppend() {
 void displayDelete() {
     clear_screen();
     char name[MAXLENGTH];
-    printf("name: ");
+    printf("name to be deleted: ");
     scanf("%s", name);
     getchar();
 

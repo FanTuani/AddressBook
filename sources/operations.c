@@ -21,17 +21,28 @@ int addData(const Student *student) {
 
 int deleteData(const char *delName) {
     FILE *file = fopen(DATAFILE, "rb+");
-    Student student[1000];
-    int cnt = 0, isFound = 0;
+    Student student[1000], delStu[1000];
+    int cnt = 0, delCnt = 0, isFound = 0;
     while (fread(&student[cnt], sizeof(Student), 1, file) != 0) {
         if (strcmp(student[cnt].name, delName) == 0) {
             cnt--;
+            delCnt++;
             isFound = 1;
         }
         cnt++;
     }
     fclose(file);
     if (isFound) {
+        for (int i = 0; i < delCnt; i++) {
+            printf("%s %s\n", delStu[i].name, delStu[i].number);
+        }
+        printf("%d record was found\nare you sure to delete it? [y/n]\n", delCnt);
+        char op;
+        scanf("%c", &op);
+        getchar();
+        if (op != 'y') { // info could be better
+            return 1;
+        }
         file = fopen(DATAFILE, "wb+");
         for (int i = 0; i < cnt; i++) {
             fwrite(&student[i], sizeof(Student), 1, file);
